@@ -29,7 +29,8 @@ import requests
 os.system('clear')
 print('[---GPI---]')
 print('1. Install Program')
-print('2. Exit')
+print('2. Execute Program')
+print('3. Exit')
 print()
 cmd = input('> ')
 if cmd == '1':
@@ -53,15 +54,20 @@ if cmd == '1':
 
         # Crear un alias en .bashrc para el programa instalado
         program_name_no_ext = os.path.splitext(programname)[0]  # Eliminar la extensión del archivo
-        with open(f'/home/{os.getlogin()}/.bashrc', 'a') as bashrc:
-            bashrc.write(f'\nalias {program_name_no_ext}="python3 {program_path}"\n')
-
-        print(f'Alias for {program_name_no_ext} added to .bashrc!')
     else:
         os.system('clear')
         print('Cannot find the program.')
         input()
         exit()
+elif cmd == '2':
+    os.system('clear')
+    print('You need to have the program installed for execute it!')
+    input()
+    os.system('clear')
+    programexec = input('Program Name > ')
+    os.system(f'/home/{os.getlogin()}/Documents/gpi_pgs/{programexec}')
+    os.system('clear')
+    exit()
 else:
     os.system('clear')
     exit()
