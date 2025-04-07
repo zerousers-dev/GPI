@@ -1,5 +1,6 @@
 import os
 import time
+import requests
 
 os.system('clear')
 print('[---GPI---]')
@@ -37,9 +38,25 @@ if cmd == '1':
     response = requests.get(f'https://raw.githubusercontent.com/AaronVerdep/GPI/main/pgs/{programname}')
     if response.status_code == 200:
         os.system('clear')
-        with open(f'/home/{os.getlogin()}/Desktop/{programname}', 'wb') as program:
+
+        # Verificar y crear la carpeta gpi_pgs en Documents si no existe
+        documents_path = f'/home/{os.getlogin()}/Documents/gpi_pgs'
+        if not os.path.exists(documents_path):
+            os.mkdir(documents_path)
+        
+        # Guardar el programa en la carpeta gpi_pgs
+        program_path = f'{documents_path}/{programname}'
+        with open(program_path, 'wb') as program:
             program.write(response.content)
-        print('Program Installed on Desktop successfully!')
+
+        print(f'Program Installed in Documents/gpi_pgs successfully!')
+
+        # Crear un alias en .bashrc para el programa instalado
+        program_name_no_ext = os.path.splitext(programname)[0]  # Eliminar la extensión del archivo
+        with open(f'/home/{os.getlogin()}/.bashrc', 'a') as bashrc:
+            bashrc.write(f'\nalias {program_name_no_ext}="python3 {program_path}"\n')
+
+        print(f'Alias for {program_name_no_ext} added to .bashrc!')
     else:
         os.system('clear')
         print('Cannot find the program.')
