@@ -65,9 +65,22 @@ elif cmd == '2':
     input()
     os.system('clear')
     programexec = input('Program Name > ')
-    os.system(f'/home/{os.getlogin()}/Documents/gpi_pgs/{programexec}')
-    os.system('clear')
-    exit()
+    
+    # Verificar si el archivo existe antes de intentar ejecutarlo
+    program_exec_path = f'/home/{os.getlogin()}/Documents/gpi_pgs/{programexec}'
+    if os.path.exists(program_exec_path):
+        # Asegurarse de que el archivo sea ejecutable
+        os.chmod(program_exec_path, 0o755)  # Cambiar los permisos para hacerlo ejecutable
+        
+        # Ejecutar el programa
+        os.system(program_exec_path)
+        time.sleep(1)  # Pausa corta para asegurar que se ejecute correctamente
+        os.system('clear')
+    else:
+        print(f"Error: The program '{programexec}' does not exist.")
+        input()
+        os.system('clear')
+        exit()
 else:
     os.system('clear')
     exit()
