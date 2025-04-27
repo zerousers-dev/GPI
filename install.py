@@ -36,7 +36,7 @@ cmd = input('> ')
 if cmd == '1':
     os.system('clear')
     programname = input('Program Name > ')
-    response = requests.get(f'https://raw.githubusercontent.com/AaronVerdep/GPI/main/pgs/{programname}')
+    response = requests.get(f'https://raw.githubusercontent.com/zerousers-dev/GPI/main/pgs/{programname}')
     if response.status_code == 200:
         os.system('clear')
 
